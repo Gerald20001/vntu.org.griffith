@@ -5,28 +5,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class NumberUtils {
-    public static String numberPredicator(String number, Scanner in){
+    public static boolean isValid(String number, String system) {
 
-        List<String> possibleSystems = new ArrayList<>();
-        if(number.matches("^[01]+(\\.[01]+)?$")) possibleSystems.add("bin");
-
-        if(number.matches("[+-]?[0-7]+(\\.[0-7]+)?$")) possibleSystems.add("oct");
-
-        if(number.matches("[+-]?[0-9]+(\\.[0-9]+)?$")) possibleSystems.add("dec");
-
-        if(number.matches("[+-]?[0-9a-fA-F]+(\\.[0-9a-fA-F]+)?$")) possibleSystems.add("hex");
-
-        if(possibleSystems.isEmpty()) return "unknown";
-
-        if(possibleSystems.size() == 1) return possibleSystems.get(0);
-
-        else if(possibleSystems.size() >1){
-            System.out.println("\nЧисло " + number + " підходить для таких систем як: "
-                    + possibleSystems + "." +
-                    " \nВкажіть систему числення:");
-            String system = in.nextLine();
-            return system;
+        switch (system) {
+            case "bin":
+                return number.matches("^[01]+(\\.[01]+)?$");
+            case "oct":
+                return number.matches("[+-]?[0-7]+(\\.[0-7]+)?$");
+            case "dec":
+                return number.matches("[+-]?[0-9]+(\\.[0-9]+)?$");
+            case "hex":
+                return number.matches("[+-]?[0-9a-fA-F]+(\\.[0-9a-fA-F]+)?$");
+            default:
+                return false;
         }
-        return "error";
+
     }
 }
