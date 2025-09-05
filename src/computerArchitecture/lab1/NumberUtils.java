@@ -1,8 +1,5 @@
 package computerArchitecture.lab1;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class NumberUtils {
     public static boolean isValid(String number, String system) {

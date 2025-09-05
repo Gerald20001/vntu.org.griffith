@@ -8,8 +8,8 @@ import static java.lang.Math.pow;
 
 public class Functions {
 
-    // ДЕСЯТКОВА СИСТЕМА В ДВІЙКОВУ
-    public static void decToBin(String number) {
+    // ДЕСЯТКОВА СИСТЕМА В ІНШУ
+    public static void decToSystem(String number, int system) {
         int[][] parts = splitNumber(number);
         int[] wholeDigits = parts[0];
         int[] fracDigits = parts[1];
@@ -25,37 +25,43 @@ public class Functions {
         int step1 = 1;
         System.out.println("Переведення цілої частини:\n");
         while (wholeNumber > 0) {
-            int temp = wholeNumber % 2;
-            System.out.printf("Крок %d: %d %% 2 = %d\n", step1, wholeNumber, temp);
+            int temp = wholeNumber % system;
+            System.out.printf("Крок %d: %d %% %d = %d\n", step1, wholeNumber, system, temp);
             binResult.append(temp);
-            wholeNumber /= 2;
+            wholeNumber /= system;
             System.out.printf("Next number: %d\n\n", wholeNumber);
             step1++;
         }
+        if (binResult.length() == 0) {
+            binResult.append(0);
+        }
+
 
         double fracNumber = 0;
-        double factor = 0.1;
+        double factor = 1.0 / system;
+        ;
         for (int digit : fracDigits) {
             fracNumber += digit * factor;
-            factor /= 10;
+            factor /= system;
         }
 
         StringBuilder fracResult = new StringBuilder();
         int step2 = 1;
         for (int i = 0; i < 4; i++) {
-            double temp = fracNumber * 2;
-            int bit = (temp >= 1) ? 1 : 0;
-            fracResult.append(bit);
-            if (bit == 1) temp -= 1;
-            System.out.printf("Крок %d: %.4f*2=%.4f bit=%d%n%n", step2, fracNumber, temp, bit);
-            fracNumber = temp;
+            double temp = fracNumber * system;
+            int digit = (int) temp;
+            fracResult.append(digit);
+            fracNumber = temp - digit;
+            System.out.printf("Крок %d: %.4f * %d = %.4f digit=%d%n%n", step2, fracNumber, system, temp, digit);
             step2++;
         }
 
-        System.out.println("FINAL RESULT: " + binResult.reverse() + "." + fracResult);
+
+        System.out.println("FINAL RESULT: " + binResult.reverse() +
+                (fracResult.toString().equals("0000") ? "" : "." + fracResult));
     }
 
-    // ДВІЙКОВА СИСТЕМА В ДЕСЯТКОВУ
+        // ДВІЙКОВА СИСТЕМА В ДЕСЯТКОВУ
     public static void binToDec(String number) {
         int[][] parts = splitNumber(number);
         int[] wholeDigits = parts[0];

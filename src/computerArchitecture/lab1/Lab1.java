@@ -17,10 +17,9 @@ public class Lab1 {
                 case 1 -> {
                     String number = Functions.enterValue(in);
                     if (isValid(number, "dec"))
-                        Functions.decToBin(number);
+                        Functions.decToSystem(number,2);
                      else
-                        System.out.println("NOT GOOD");
-                     break;
+                        System.out.println("ENTER CORRECT NUMBER!");
 
                 }
                 case 2 ->{
@@ -28,15 +27,14 @@ public class Lab1 {
                     if(isValid(number, "bin"))
                     Functions.binToDec(number);
                     else
-                    System.out.println("NOT GOOD");
-                    break;
+                    System.out.println("ENTER CORRECT NUMBER!");
                 }
                 case 3 -> {
                     String number = Functions.enterValue(in);
                     if(isValid(number, "oct"))
                         Functions.binToOct(number);
                     else
-                    System.out.println("NOT GOOD");
+                    System.out.println("ENTER CORRECT NUMBER!");
                 }
                 case 0 -> {
                     System.out.println("EXIT...");
