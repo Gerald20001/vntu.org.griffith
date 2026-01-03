@@ -10,27 +10,27 @@ public class NumberConverter {
         double fractionalPart = number - integerPart;
 
         // Частина для цілих чисел
-        String intResult = "";
-        if (integerPart == 0) intResult = "0";
+        StringBuilder intResult = new StringBuilder();
+        if (integerPart == 0) intResult = new StringBuilder("0");
         else {
             while (integerPart > 0) {
                 long remainder = integerPart % base;
-                intResult = digitToChar(remainder) + intResult;
+                intResult.insert(0, digitToChar(remainder));
                 integerPart /= base;
             }
         }
 
         // Частина для дробових чисел
-        String fracResult = "";
+        StringBuilder fracResult = new StringBuilder();
         int precision = 10; // кількість знаків після коми
         while (fractionalPart > 0 && precision-- > 0) {
             fractionalPart *= base;
             int digit = (int) fractionalPart;
-            fracResult += digitToChar(digit);
+            fracResult.append(digitToChar(digit));
             fractionalPart -= digit;
         }
 
-        return fracResult.isEmpty() ? intResult : intResult + "." + fracResult;
+        return (fracResult.isEmpty()) ? intResult.toString() : intResult + "." + fracResult;
     }
 
     // Перетворення символу у число для шістнадцяткової системи
@@ -80,7 +80,7 @@ public class NumberConverter {
             System.out.println("0. Вихід");
             System.out.print("Ваш вибір: ");
             int choice = sc.nextInt();
-            sc.nextLine(); // очищення буфера
+            sc.nextLine();
 
             if (choice == 0) break;
 
